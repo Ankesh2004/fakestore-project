@@ -13,8 +13,10 @@ export interface CartContextType {
 
 interface CartItem {
     id: number;
+    title: string;
     price: number;
     amount: number;
+    image: string;
   }
 
 export const CartContext = createContext<CartContextType>({} as CartContextType);
@@ -49,7 +51,7 @@ const CartContextProvider = ({
   }, [cart]);
 
   // add to cart
-  const addToCart = (product:CartItem, id:Number) => {
+  const addToCart = (product:any, id:Number) => {
     const newItem = { ...product, amount: 1 };
     // check if the item is already in the cart
     const cartItem = cart.find((item) => {
