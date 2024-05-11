@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { ProductContext } from "../contexts/ProductContext";
 import ProductCard from "../components/ProductCard";
 import Spinner from "../components/Spinner";
@@ -52,6 +52,36 @@ const Home = () => {
     filterProducts(e.target.value);
   };
 
+  // Infinite Scroll
+  const [itemsToShow, setItemsToShow] = useState(9);
+  const [isFetching, setIsFetching] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!isFetching) return;
+    fetchMoreListItems();
+  }, [isFetching]);
+
+  function handleScroll() {
+    if (
+      window.innerHeight + document.documentElement.scrollTop <
+      document.documentElement.offsetHeight * 0.2 // fetch new items as soon user has scrolled 20% of the page height (as updating would be time inccuring)
+    )
+      return;
+    setIsFetching(true);
+  }
+
+  function fetchMoreListItems() {
+    setTimeout(() => {
+      setItemsToShow(itemsToShow + 9);
+      setIsFetching(false);
+    }, 2000);
+  }
+
   return (
     <div className="mt-24 p-8 mx-8">
       <h1 className="text-center font-bold lg:text-4xl text-2xl">
@@ -68,7 +98,7 @@ const Home = () => {
           />
         </div>
         <div className="flex justify-center items-center gap-1 mt-4 sm:w-[40%]">
-            <h2 className="font-bold md:text-xl sm:text-lg text-md">Category:</h2>
+          <h2 className="font-bold md:text-xl sm:text-lg text-md">Category:</h2>
           <select
             value={category}
             onChange={handleCategory}
@@ -86,7 +116,7 @@ const Home = () => {
         <Spinner />
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
-          {products.map((product: any) => (
+          {products.slice(0, itemsToShow).map((product: any) => (
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
