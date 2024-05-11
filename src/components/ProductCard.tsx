@@ -1,10 +1,15 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Link } from 'react-router-dom'
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { IoEyeOutline } from "react-icons/io5";
+import { CartContext } from '../contexts/CartContext';
 
 const ProductCard = ({product}: {product: any}) => {
   const {id,category,title,price,image} = product
+  const {addToCart} = useContext(CartContext)
+  const addToCartHandler = () => {
+    addToCart(product,id);
+  }
   return (
     <div>
         <div className="border rounded-sm border-[#e4e4e4] h-[250px] mb-4 relative overflow-hidden group transition">
@@ -20,7 +25,7 @@ const ProductCard = ({product}: {product: any}) => {
         </div>
         {/* CTA buttons */}
         <div className="absolute left-5 gap-2 -bottom-10 group-hover:bottom-5 p-2 flex flex-row justify-center items-center gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <button>
+          <button onClick={addToCartHandler}>
             <div className="flex rounded-xl justify-center gap-1 items-center text-white p-2 h-12 bg-red-400">
               <IoIosAddCircleOutline className="text-3xl" />
             </div>

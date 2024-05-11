@@ -1,15 +1,18 @@
-import React,{useState,useEffect} from 'react'
+import React,{useState,useEffect,useContext} from 'react'
 import { Link } from 'react-router-dom';
 import { MdStore } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
+import { CartContext } from '../contexts/CartContext';
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
+  const {itemAmount} = useContext(CartContext)
   useEffect(() => {
     window.addEventListener("scroll", () => {
       window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
     });
   });
+  
   return (
     <header
       className={`${
@@ -30,7 +33,7 @@ const Navbar = () => {
       <div>
         <Link to={"/cart"} className='flex relative cursor-pointer'>
           <IoCartOutline className="text-2xl text-gray-800" />
-          <span className="absolute top-3 left-4 bg-red-500 text-white rounded-full px-1 text-xs">0</span>
+          <span className="absolute top-3 left-4 bg-red-500 text-white rounded-full px-1 text-xs">{itemAmount}</span>
         </Link>
       </div>
 
