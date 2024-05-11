@@ -1,0 +1,36 @@
+import React,{useState} from 'react'
+import { Link } from 'react-router-dom';
+import { MdStore } from "react-icons/md";
+import { IoCartOutline } from "react-icons/io5";
+
+const Navbar = () => {
+  const [isActive, setIsActive] = useState(false);
+  return (
+    <header
+      className={`${
+        isActive ? "bg-white py-4 shadow-md" : "bg-none py-6"
+      } fixed flex flex-row justify-around  w-full z-10 px-4 lg:px-8 transition-all`}
+    >
+      {/* Logo  - Directing to home*/}
+      <div className="container mx-auto flex items-center justify-between h-full">
+        <Link to={"/"}>
+          <div className="flex items-center">
+            <MdStore className="text-4xl text-red-500" />
+            <h1 className="text-xl font-bold text-gray-800">FakeStore</h1>
+          </div>
+        </Link>
+      </div>
+
+      {/* Cart  */}
+      <div>
+        <Link to={"/cart"} className='flex relative cursor-pointer'>
+          <IoCartOutline className="text-2xl text-gray-800" />
+          <span className="absolute top-3 left-4 bg-red-500 text-white rounded-full px-1 text-xs">0</span>
+        </Link>
+      </div>
+
+    </header>
+  );
+};
+
+export default Navbar;
