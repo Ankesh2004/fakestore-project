@@ -19,7 +19,7 @@ const ProductCard = ({product}: {product: any}) => {
           </div>
         </div>
         {/* CTA buttons */}
-        <div className="absolute left-0 gap-2 -bottom-10 group-hover:bottom-5 p-2 flex flex-row justify-center items-center gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
+        <div className="absolute left-5 gap-2 -bottom-10 group-hover:bottom-5 p-2 flex flex-row justify-center items-center gap-y-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
           <button>
             <div className="flex rounded-xl justify-center gap-1 items-center text-white p-2 h-12 bg-red-400">
               <IoIosAddCircleOutline className="text-3xl" />
