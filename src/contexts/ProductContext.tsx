@@ -1,6 +1,11 @@
 import React, { useEffect, useState, createContext } from "react";
 
-const ProductContext = createContext({});
+export interface ProductContextType {
+    products: any[];
+    filterProducts: (category: string) => void;
+}
+
+export const ProductContext = createContext<ProductContextType>({} as ProductContextType);
 
 const ProductContextProvider = ({
   children,
@@ -36,8 +41,10 @@ const ProductContextProvider = ({
 
   // fetch products
   const fetchProducts = async () => {
+    console.log("Fetching data");
     const response = await fetch("https://fakestoreapi.com/products");
     const data = await response.json();
+    console.log("Fetched data",data);
     setProducts(data);
     setAllProducts(data);
   };

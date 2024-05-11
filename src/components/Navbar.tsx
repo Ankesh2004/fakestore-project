@@ -1,15 +1,20 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import { MdStore } from "react-icons/md";
 import { IoCartOutline } from "react-icons/io5";
 
 const Navbar = () => {
   const [isActive, setIsActive] = useState(false);
+  useEffect(() => {
+    window.addEventListener("scroll", () => {
+      window.scrollY > 60 ? setIsActive(true) : setIsActive(false);
+    });
+  });
   return (
     <header
       className={`${
-        isActive ? "bg-white py-4 shadow-md" : "bg-none py-6"
-      } fixed flex flex-row justify-around  w-full z-10 px-4 lg:px-8 transition-all`}
+        isActive ? "bg-red-50 py-4 shadow-md" : "bg-red-100 py-6"
+      } fixed flex flex-row items-center justify-around  w-full z-10 px-4 lg:px-8 transition-all`}
     >
       {/* Logo  - Directing to home*/}
       <div className="container mx-auto flex items-center justify-between h-full">
