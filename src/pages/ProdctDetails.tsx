@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../contexts/CartContext";
 import { ProductContext } from "../contexts/ProductContext";
+import Spinner from "../components/Spinner";
 
 const ProductDetails = () => {
   // get the product id from url
@@ -18,7 +19,7 @@ const product = products.find((item) => {
 if (!product) {
     return (
         <section className="h-screen flex justify-center items-center">
-            Oops product not found
+            <Spinner/>
         </section>
     );
 }

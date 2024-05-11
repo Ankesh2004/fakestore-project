@@ -3,6 +3,7 @@ import { IoMdAdd } from "react-icons/io";
 import { GrSubtract } from "react-icons/gr";
 import { CartContext } from '../contexts/CartContext';
 import { IoTrashBinOutline } from "react-icons/io5";
+import { Link } from 'react-router-dom';
 
 const CartItem = ({ item }) => {
     const { id, title, price, amount, image } = item;
@@ -12,7 +13,7 @@ const CartItem = ({ item }) => {
             {/* Image and increase/decrease quantity buttons */}
             <div className='p-2 px-4 flex flex-col gap-3 md:w-[20%]'>
                 <img
-                    className="max-h-[80px] md:max-h-[120px] lg:max-h-[160px] group-hover:scale-110 transition duration-300"
+                    className="max-h-[12rem] md:max-h-[120px] lg:max-h-[180px] group-hover:scale-110 transition duration-300"
                     src={image}
                     alt={title}
                 />
@@ -30,7 +31,7 @@ const CartItem = ({ item }) => {
             </div>
             {/* Title, qantity and price */}
             <div className='p-2 px-4 flex flex-col justify-center items-start gap-2 md:gap-3 md:w-[70%]'>
-                <h3 className='font-bold text-md md:text-lg lg:text-xl'>{title}</h3>
+                <Link to={`/product/${id}`} className='font-bold text-md md:text-lg lg:text-xl'>{title}</Link>
                 <div className='flex flex-wrap items-center gap-2'>
                     <p className='font-bold text-sm md:text-md lg:text-lg'>Total Price :</p>
                     <p>({amount} x ${price}) =</p>
