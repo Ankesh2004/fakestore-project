@@ -2,6 +2,8 @@ import React, { useEffect, useState, createContext } from "react";
 
 export interface ProductContextType {
     products: any[];
+    allProducts: any[];
+    setProducts: React.Dispatch<React.SetStateAction<any[]>>;
     filterProducts: (category: string) => void;
 }
 
@@ -53,13 +55,13 @@ const ProductContextProvider = ({
     fetchProducts();
   }, []);
 
-  return (
+return (
     <ProductContext.Provider
-      value={{ products, filterProducts }}
+        value={{ products,allProducts ,setProducts: setProducts as React.Dispatch<React.SetStateAction<any[]>>, filterProducts }}
     >
-      {children}
+        {children}
     </ProductContext.Provider>
-  );
+);
 };
 
 export default ProductContextProvider;
