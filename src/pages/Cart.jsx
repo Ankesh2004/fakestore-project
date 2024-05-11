@@ -4,11 +4,18 @@ import { CartContext } from '../contexts/CartContext';
 
 const Cart = () => {
   const { cart, itemAmount, total } = useContext(CartContext);
+  const { clearCart } = useContext(CartContext);
 
   return (
-    <div className='mt-24 text-center p-4 md:p-8'>
-      <h1 className='font-bold text-xl md:text-2xl lg:text-3xl'>Cart</h1>
-      {!cart || itemAmount === 0 ? (  
+    <div className='mt-16 text-center p-4 md:p-8'>
+      <div className='flex flex-row justify-around items-center p-2'>
+        <h1 className='font-bold text-xl md:text-2xl lg:text-3xl'>Cart</h1>
+        <button className='p-2 flex flex-row items-center gap-2 rounded-xl shadow-sm shadow-black bg-red-500 text-white font-bold text-sm md:text-md lg:text-lg transition-all duration-300 hover:scale-95 hover:shadow-md hover:shadow-black'
+          onClick={clearCart}>
+          <h2>Clear Cart</h2>
+        </button>
+      </div>
+      {!cart || itemAmount === 0 ? (
         // If cart is empty
         <div className='flex justify-center p-[1rem] m-auto'>
           <h2>Your cart is empty!</h2>

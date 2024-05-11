@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from "react";
+import React, { createContext, useState, useEffect } from "react";
 
 export interface CartContextType {
     cart: any[];
@@ -28,6 +28,13 @@ const CartContextProvider = ({
   }) => {
   // cart state
   const [cart, setCart] = useState<CartItem[]>([]);
+  // get cart from local storage
+  useEffect(() => {
+    const localCart = localStorage.getItem('cart');
+    if (localCart) {
+      setCart(JSON.parse(localCart));
+    }
+  }, []);
   // item amount state
   const [itemAmount, setItemAmount] = useState(0);
   // total price state
@@ -64,8 +71,10 @@ const CartContextProvider = ({
         } else return item;
       });
       setCart(newCart);
+      localStorage.setItem('cart', JSON.stringify(newCart));
     } else {
       setCart([...cart, newItem]);
+        localStorage.setItem('cart', JSON.stringify([...cart, newItem]));
     }
   };
 
@@ -75,11 +84,13 @@ const CartContextProvider = ({
       return item.id !== id;
     });
     setCart(newCart);
+    localStorage.setItem('cart', JSON.stringify(newCart));
   };
 
   // cleart cart
   const clearCart = () => {
     setCart([]);
+    localStorage.removeItem('cart');
   };
 
   // increase amount
@@ -102,6 +113,7 @@ const CartContextProvider = ({
         }
       });
       setCart(newCart);
+        localStorage.setItem('cart', JSON.stringify(newCart));
     }
     if (cartItem && cartItem.amount <= 1) {
       removeFromCart(id);
